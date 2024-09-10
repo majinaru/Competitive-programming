@@ -1,0 +1,39 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+#define endl "\n"
+using ll = long long;
+
+
+void solve(){
+    int n;
+    cin >> n;
+    vector<int> vt(n+1);
+    for(int i = 0;i < n;i++){
+        cin >> vt[i];
+    }
+
+    vector<int> pref1(n+1), pref2(n+1);
+
+    for(int i = 1; i <= n; i++){
+        pref1[i] = pref1[i-1] + (vt[i-1] < vt[i]) ? 1: 0;
+    }
+
+    for(int i = n-1; i >0; i--){
+        pref2[i] = pref2[i+1] + (vt[i+1] < vt[i]) ? 1: 0; 
+    }
+
+    int sum = 0;
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j < n; j++){
+            if(pref1[j]- pref1[i-1] == pref2[j] - pref2[i-1])
+                sum++;
+        }}
+        cout << sum << endl;
+}
+
+int32_t main(){
+    cin.tie(0)->sync_with_stdio(0);
+    solve();
+
+}
