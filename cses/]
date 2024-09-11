@@ -14,15 +14,12 @@ template <typename T, typename U>
 using ordered_map = tree<T, U, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 
-//  NOT FINISHED AND IMPOSSIBLE ALSO
-
 int s1, s2;
 int n, k;
 ordered_set<pair<int,int>> st;
 
 void dec(int element, int pos){
         pair<int,int> aux = {element, pos};
-        pair<int, int> last =  *st.find_by_order((st.size()+1)/2-1);
 
         if(aux <= *st.find_by_order((st.size()+1)/2-1))
             s1-= element;
@@ -30,57 +27,35 @@ void dec(int element, int pos){
             s2-= element;
 
         st.erase({element, pos});
-
-        pair<int,int> novo = *st.find_by_order((st.size()+1)/2-1);
-
-        if( last < novo ){
-            s1+= novo.first;
-            s2-= novo.first;
-        }
-
-        cout << "S1 E S2 "  << endl;
-        cout << s1 << " " << s2 << endl;
 }
 
 void inc(int element, int pos){
 
     pair<int,int> aux = {element, pos};
 
-    pair<int,int> last = *(st.find_by_order((st.size()+1)/2-1));
+    pair<int,int> Mlast = *(st.find_by_order((st.size()+1)/2-1));
     st.insert({element, pos});
-    pair<int,int> novo = *(st.find_by_order((st.size()+1)/2-1));
+    pair<int,int> Mnovo = *(st.find_by_order((st.size()+1)/2-1));
 
-    if(aux < novo){
+    if(aux < Mnovo){
         s1+= element;
     }
-    else if(aux > novo){
+    else{
         s2+= element;
     }
 
-    /*cout << "Novo last " << endl;*/
-    /*cout << novo.first << endl;*/
-    /*cout << last.first << endl;*/
-
-    if(novo == aux){
-        cout << " caiu aqui " << endl;
-        s1+= element;
-        s2+= last.first;
-        cout << s1 << " <= s1 " << endl;
-        cout << s2 << "  <= s2" << endl;
-        return;
-    }
-    if(novo == last){
-        return;
+    if(Mnovo != Mlast){
+        if(Mnovo.first > Mlast.first){
+            s1+=  Mnovo.first;
+            s2-= Mnovo.first;
+        }
+        else{
+            s1-= Mlast.first;
+            s1+= Mnovo.first;
+            s2+= Mlast.first;
+        }
     }
 
-    if(novo > last){
-        s1+= novo.first;
-        s2-= novo.first;
-    }
-    else if(novo < last){
-        s1-= last.first;
-        s2+= last.first;
-    }
 }
 
 void solve() {
@@ -99,7 +74,7 @@ void solve() {
 
     int cont = 0;
     for(auto v: st){
-        if(cont <= (k-1)/2){
+        if(cont <= k/2){
             s1+= v.first;
         }
         else{
@@ -113,16 +88,10 @@ void solve() {
 
         dec(vt[i-k], i-k);
         inc(vt[i], i);
-
-        if(i == n-2){
-            cout << endl;
-            for(auto[v,x]: st) cout << v << endl;
-            cout << s1 << ' ' << s2 << endl;
-        }
     }
-    /*cout << endl;*/
-    /*for(auto[v,x]: st) cout << v << endl;*/
-    /*cout << s1 << ' ' << s2 << endl;*/
+    cout << endl;
+    for(auto[v,x]: st) cout << v << endl;
+    cout << s1 << ' ' << s2 << endl;
     cout << s2 - s1 + st.find_by_order((st.size()+1)/2-1)->first << endl;
 
 }
