@@ -80,9 +80,7 @@ void solve() {
     set<pair<int,int>> st;
     s1 = 0;
     s2= 0;
-
-    for(int i = 0; i < n; i++){
-        cin >> vt[i];
+    for(int i = 0; i < n; i++){ cin >> vt[i];
 
         if(k> i)
             st.insert({vt[i], i});

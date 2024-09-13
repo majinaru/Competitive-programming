@@ -1,13 +1,12 @@
-#include<bits/stdc++.h> 
+#include <bits/stdc++.h>
+#include <cstdint>
 using namespace std;
 #define endl '\n'
 using ll = long long;
 
-void solve(){
+void solve() {}
 
-}
-
-int32_t main(){
+int32_t main() {
     cin.tie(0)->sync_with_stdio(0);
     solve();
 }
