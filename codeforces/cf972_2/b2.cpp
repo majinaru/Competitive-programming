@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define endl "\n"
+#define int ll
 using ll = long long;
 
 void solve(){
@@ -12,7 +13,9 @@ void solve(){
         int a;
         cin >> a;
         t.insert(a);
+
     }
+
 
 
     for(int i = 0; i < q; i++){
@@ -20,34 +23,21 @@ void solve(){
         cin >> d;
 
         auto it = t.lower_bound(d);
-        if(it ==  t.end()){
-            it = prev(it);
-        }
-        auto next_it = next(it);
+
         auto prev_it = prev(it);
-
-
-        int ans = -1;
-        if(*it > d){
-            if(prev_it != it)
-                ans = (*it - *prev_it)/2;
-            else
-                ans = *(prev_it)-1;
-        }
-        else{
-            if(d- *it <= 1 || (next_it != t.end() && *next_it - d <=1)
-                    || (prev_it != it && abs(d - *prev_it) <=1)){
-                ans = 0;
-            }
-            else if(next_it != t.end()){
-                ans = (*(next_it) - *it)/2;
-            }
-            else
-                ans = (n - *it);
+        if(it == t.begin()){
+            prev_it = t.begin();
         }
 
-        cout << ans << endl;
-
+        if(it == t.end()){
+            cout << n - *t.rbegin()<< endl;
+        }
+        if(*it  > d && it == t.begin()){
+            cout << *it - 1 << endl;
+        }
+        else if(*it > d && it!= t.begin()){
+            cout << (*it- *prev_it)/2<< endl;
+        }
     }
 }
 
