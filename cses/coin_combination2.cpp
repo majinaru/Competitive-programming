@@ -15,24 +15,18 @@ void solve() {
     }
 
     vector<int> dp(x+1);
-    dp[0] = 0;
+    dp[0] = 1;
 
-    bool first = true;
-    for(int i = 1; i <= x; i++){
-        first = true;
-        int cont = 0;
-        for(int j = cont; j < n; j++){
-            if(i-coins[j]>= 0){
-                dp[i] = (dp[i] + dp[i-coins[j]]) % MOD;
-                if(first){
-                    cont++;
-                    first = false;
-                }
+    for(auto c: coins){
+        for(int i = 1; i <=x; i++){
+            if(i-c>= 0){
+                (dp[i]+= dp[i-c]) %= MOD;
             }
         }
     }
-    cout << dp[x] << endl;
 
+
+    cout << dp[x] << endl;
 }
 
 int32_t main() {
