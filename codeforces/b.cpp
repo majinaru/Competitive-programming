@@ -7,6 +7,7 @@ void solve() {
 
   cout << (m / a) + (m / b) + 2 << endl;
 }
+
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
