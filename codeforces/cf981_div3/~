@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+using ll = long long;
+
+void solve() {
+  int n;
+  cin >> n;
+  vector<int> vt(n);
+  for (int i = 0; i < n; i++) {
+    cin >> vt[i];
+  }
+
+  for (int i = 1; i < n - 1; i++) {
+    int sum1 = 0;
+    int sum2 = 0;
+    if (vt[i] == vt[i - 1]) {
+      sum1++;
+    }
+    if (vt[n - i + 1] == vt[n - i + 2]) {
+      sum1--;
+    }
+
+    if (vt[i - 1] == vt[n - i]) {
+      sum2++;
+    }
+    if (vt[i] == vt[n - i + 1])
+      sum2++;
+
+    if (sum2 > sum1) {
+      swap(vt[i], vt[n - i + 1]);
+    }
+  }
+  if (n % 2 != 0) {
+  }
+}
+
+int32_t main() {
+  cin.tie(0)->sync_with_stdio(0);
+  int t;
+  cin >> t;
+  while (t--) {
+    solve();
+  }
+}
