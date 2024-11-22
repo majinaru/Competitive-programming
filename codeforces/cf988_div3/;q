@@ -1,0 +1,73 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define endl "\n"
+using ll = long long;
+
+void solve(){
+    int n, m, l;
+    cin >> n >> m >> l;
+
+    vector<pair<int,int>> path;
+
+    for(int i = 0;i < n; i++){
+        int L, R;
+        cin >> L >> R;
+
+        path.push_back({L, R-L});
+    }
+
+    priority_queue<int> pq;
+    int idx = 0;
+    int energia = 0;
+    int cont = 0;
+    bool cond = true;
+    int last = 0;
+
+    for(int i = 0; i < m; i++){
+        int x, v;
+        cin >> x >> v;
+
+        if(x > path[idx].first){
+            while(!pq.empty() && energia <= path[idx].second){
+                energia+= pq.top();
+                pq.pop();
+                cont++;
+            }
+
+            if(energia > path[idx].second){
+                idx++;
+            }
+            else{
+                cond = false;
+            }
+        }
+        pq.push(v);
+        last  =x;
+    }
+
+
+    if(x < path[idx].first){
+        while(!pq.empty() && energia <= path[idx].second){
+            energia+= pq.top();
+            pq.pop();
+            cont++;
+        }
+
+        if(energia > path[idx].second){
+            idx++;
+        }
+        else{
+            cond = false;
+        }
+    }
+    cout << (cond ? cont: -1) << endl;
+}
+
+int32_t main(){
+    //cin.tie(0)->sync_with_stdio(0);
+    int t;
+    cin >> t;
+    while(t--){
+        solve();
+    }
+}
